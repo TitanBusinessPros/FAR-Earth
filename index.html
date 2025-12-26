@@ -267,6 +267,68 @@
             transform: scale(1.1);
         }
         
+        #pauseBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 150;
+            background: rgba(0, 255, 255, 0.8);
+            border: 2px solid #00ffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: #000;
+            font-weight: bold;
+            display: none;
+        }
+        
+        #pauseBtn:hover {
+            background: #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        
+        #pauseMenu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #00ffff;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        #pauseMenu h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffff;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #00ffff;
+        }
+        
+        #pauseMenu button {
+            margin: 10px;
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            background: #00ffff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        #pauseMenu button:hover {
+            background: #00ff00;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        
         #gameOver {
             display: none;
             position: fixed;
@@ -371,6 +433,14 @@
         <h2>LEVEL COMPLETE!</h2>
         <p style="color: #00ff00; font-size: 1.5rem;">All enemies eliminated</p>
         <button id="nextLevelBtn">Continue to Next Level</button>
+    </div>
+
+    <button id="pauseBtn">⏸ PAUSE</button>
+
+    <div id="pauseMenu">
+        <h2>PAUSED</h2>
+        <button id="resumeBtn">Resume</button>
+        <button id="quitBtn">Quit to Menu</button>
     </div>
 
     <div id="gameOver">
@@ -548,6 +618,7 @@
             document.getElementById('gameCanvas').style.display = 'block';
             document.getElementById('hud').style.display = 'block';
             document.getElementById('controls').style.display = 'block';
+            document.getElementById('pauseBtn').style.display = 'block';
             
             initializeLevel();
             gameState.gameStarted = true;
@@ -1258,7 +1329,10 @@
             document.getElementById('levelDisplay').textContent = gameState.currentLevel;
             document.getElementById('levelComplete').style.display = 'none';
             
-            if (gameState.currentLevel <= 20) {
+            if (gameState.currentLevel === 2) {
+                // Redirect to Stage 2
+                window.location.href = 'FE-Stage-2.html';
+            } else if (gameState.currentLevel <= 20) {
                 gameState.player.hp = gameState.player.maxHp;
                 gameState.lives = 3; // Reset lives for new level
                 document.getElementById('livesDisplay').textContent = gameState.lives;
@@ -1329,6 +1403,27 @@
         
         document.getElementById('nextLevelBtn').addEventListener('click', nextLevel);
         document.getElementById('restartBtn').addEventListener('click', restartGame);
+        
+        // Pause button functionality
+        document.getElementById('pauseBtn').addEventListener('click', function() {
+            gameState.gameStarted = false;
+            document.getElementById('pauseMenu').style.display = 'block';
+        });
+        
+        document.getElementById('resumeBtn').addEventListener('click', function() {
+            document.getElementById('pauseMenu').style.display = 'none';
+            gameState.gameStarted = true;
+            gameLoop();
+        });
+        
+        document.getElementById('quitBtn').addEventListener('click', function() {
+            location.reload();
+        });
+        
+        // Show pause button when game starts
+        function showPauseButton() {
+            document.getElementById('pauseBtn').style.display = 'block';
+        }
     </script>
 </body>
 </html>
