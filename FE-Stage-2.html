@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FAR-Earth: Stage 2 - Orbital Assault</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +93,34 @@
                 0 0 30px #ff6600,
                 0 0 45px #ff6600;
             font-weight: 900;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+                margin-top: 4rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .stage-title {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .characterSelect {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .characterCard {
+                width: 80vw;
+                max-width: 300px;
+            }
         }
         
         .characterSelect {
